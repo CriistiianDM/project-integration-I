@@ -16,6 +16,6 @@ root.render(
         //maldita propiedad, 30m perdi de mi vida :3
         shadows={true}
     >
-        <Experience />
+    <Experience />
     </Canvas>
 )

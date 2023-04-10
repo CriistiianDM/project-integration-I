@@ -7,7 +7,7 @@ import {
 } from '@react-three/drei'
 import { Perf } from 'r3f-perf'
 import * as THREE from 'three'
-
+import { Html } from '@react-three/drei'
 
 //import components
 import Sphere  from './SphereFigure';
@@ -36,7 +36,24 @@ export default function Experience() {
 
     })
 
+    const [ change_light , setChange_light ] = React.useState(0)
+
+    const handle_change_light = () => {
+        
+        if (change_light >= 4) {
+            setChange_light(0)
+        }
+        else {
+            setChange_light(change_light + 1)
+        }
+
+        console.log(change_light)
+    }
+
     return <>
+        <Html position="top-right">
+            <a onClick={handle_change_light} className='_change_light_'> CHANGE lIGHT </a>
+        </Html>
         <Perf position="top-left" />
 
         <OrbitControls makeDefault />
@@ -45,7 +62,7 @@ export default function Experience() {
             castShadow={true} 
             position={[1, 2, -4]} 
             intensity={ 1.5 }
-            {...{ type: 0 }} 
+            {...{ type: change_light }} 
         />
 
         <ambientLight intensity={ 0.5 } />
@@ -85,7 +102,7 @@ function Light_directional_aux(prop) {
     let directionHelper = [ 'DirectionalLightHelper', 
                             'HemisphereLightHelper', 
                             'PointLightHelper', 
-                            'RectAreaLightHelper',
+                            '',
                              'SpotLightHelper']
     
    
@@ -124,13 +141,20 @@ function Light_directional_aux(prop) {
     ]
 
     //helper
-    helper_light(helper_ref[type], type , directionHelper[type])
+    helper_light(helper_ref[type], directionHelper[type])
 
     return lights[type]
 
 }
 
-function helper_light(ref, type , directionHelper) {
-    if (type === 3) return null;
-    return  useHelper(ref, THREE[directionHelper], 0.5, 'hotpink')
+var previousHelper = null;
+
+function helper_light(ref, directionHelper) {
+    
+    //desativar el anterior helper por que el arealight no tiene helper y eso me daba error
+    if (previousHelper && previousHelper.dispose) {
+        previousHelper.dispose(); 
+    }
+    previousHelper = useHelper(ref, THREE[directionHelper], 0.5, 'hotpink');
+    return previousHelper;
 }
