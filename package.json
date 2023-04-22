@@ -1,17 +1,17 @@
 {
-  "name": "project-integration",
+  "name": "app",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
+    "dev": "react-scripts start",
     "build": "react-scripts build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@react-three/drei": "^9.58.4",
+    "@react-three/drei": "^9.65.5",
     "@react-three/fiber": "^8.12.0",
     "r3f-perf": "^7.1.2",
     "react": "^18.2.0",
@@ -28,7 +28,9 @@
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
-      "last 1 safari version"
+      "last 1 safari version",
+      "last 1 edge version",
+      "last 1 opera version"
     ]
   }
 }
